@@ -96,3 +96,17 @@ const getRightDiagonal = function (bingoCard){
     return rightDiagonal;
 };
 
+const hasBingo = function (drawnNumbers, elements){
+    let drawnMap = new Map();
+    drawnMap.set('free','free');
+    for (let i=0;i<drawnNumbers.length;i++){
+        drawnMap.set(drawnNumbers[i],drawnNumbers[i]);
+    }
+    for(let i=0;i<elements.length;i++){
+        if(!drawnMap.has(elements[i])){
+            return false;
+        }
+    }
+    return true;
+};
+
