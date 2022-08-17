@@ -48,9 +48,9 @@
 // );
 const getLine = function(bingoCard, lineNumber) {
     let firstElementIndex=(lineNumber-1)*5;
-    console.log(firstElementIndex);
+    //console.log(firstElementIndex);
     let line = new Array(5);
-    console.log(bingoCard);
+    //console.log(bingoCard);
     line[0]=bingoCard[firstElementIndex];
     let nextIndex=firstElementIndex;
     for (let i = 1; i <5; i++) {
@@ -98,7 +98,7 @@ const getRightDiagonal = function (bingoCard){
 
 const hasBingo = function (drawnNumbers, elements){
     let drawnMap = new Map();
-    drawnMap.set('free','free');
+    drawnMap.set('FREE','FREE');
     for (let i=0;i<drawnNumbers.length;i++){
         drawnMap.set(drawnNumbers[i],drawnNumbers[i]);
     }
@@ -110,40 +110,81 @@ const hasBingo = function (drawnNumbers, elements){
     return true;
 };
 
+const checkDiagonals= function (bingoCard, drawnNumbers) {
+    let leftDiagonal = getLeftDiagonal(bingoCard);
+    let rightDiagonal = getRightDiagonal(bingoCard);
+    return hasBingo(drawnNumbers, leftDiagonal) || hasBingo(drawnNumbers, rightDiagonal);
+};
+
+const checkLines= function (bingoCard, drawnNumbers) {
+
+    for(let i=1;i<=5;i++){
+        if(hasBingo(drawnNumbers,getLine(bingoCard,i))) return true;
+    };
+    return false;
+};
+
+const checkColumns =function (bingoCard, drawnNumbers) {
+    for(let i=1;i<=5;i++){
+        if(hasBingo(drawnNumbers,getColumn(bingoCard,i))) return true;
+    };
+    return false;
+};
 
 
+const checkForBingo = function (bingoCard, drawnNumbers) {
+
+    if(drawnNumbers.length<4) return false;
+    return checkDiagonals(bingoCard,drawnNumbers) || checkLines(bingoCard,drawnNumbers) || checkColumns(bingoCard,drawnNumbers);
+
+};
+const verify=checkForBingo(
+    [
+        8, 29, 35, 54, 65,
+        13, 24, 44, 48, 67,
+        9, 21, 'FREE', 59, 63,
+        7, 19, 34, 53, 61,
+        1, 20, 33, 46, 72
+    ],
+    [
+        1, 33, 53, 65, 29, 75
+    ]
+);
+console.log(verify)
 //module.exports = getLine();
 
 // here are some samples
 
 // this should return true with diagonal + free
-const bingoCard = [
-    8, 29, 35, 54, 65,
-    13, 24, 44, 48, 67,
-    9, 21, 'free', 59, 63,
-    7, 19, 34, 53, 61,
-    1, 20, 33, 46, 72
-];
-const drawnNumbers = [1, 33, 53,65, 46];
-const array1 =[1, 33, 53, 65, 46];
-console.log(bingoCard);
-console.log(hasBingo(drawnNumbers,array1));
+// const bingoCard = [
+//     8, 29, 35, 54, 65,
+//     13, 24, 44, 48, 67,
+//     9, 21, 'free', 59, 63,
+//     7, 19, 34, 53, 61,
+//     1, 20, 33, 46, 72
+// ];
+// const drawnNumbers = [1, 33, 53,65, 46];
+// const array1 =[1, 33, 53, 65, 46];
+// console.log(bingoCard);
+// console.log(hasBingo(drawnNumbers,array1));
 
 
 //const diagonal =getRightDiagonal(bingoCard);
 
 // this should return false
-// checkForBingo(
-//   [
-//    8, 29, 35, 54, 65,
-//    13, 24, 44, 48, 67,
-//    9, 21, 'FREE', 59, 63,
-//    7, 19, 34, 53, 61,
-//    1, 20, 33, 46, 72
-//   ],
-//   [
-//     1, 33, 53, 65, 29, 75
-//   ]
-// );
+console.log(checkForBingo(
+    [
+        8, 29, 35, 54, 65,
+        13, 24, 44, 48, 67,
+        9, 21, 'FREE', 59, 63,
+        7, 19, 34, 53, 61,
+        1, 20, 33, 46, 72
+    ],
+    [
+        8, 24, 53, 72
+    ]
+));
+
+
 
 
