@@ -60,3 +60,15 @@ const getLine = function(bingoCard, lineNumber) {
     return line;
 };
 
+const getColumn = function (bingoCard,columnNumber){
+    let column=new Array(5);
+    let firstElementIndex=columnNumber-1;
+    column[0]=bingoCard[firstElementIndex];
+    let nextIndex=firstElementIndex;
+    for(let i=1;i<5;i++){
+        nextIndex+=5;
+        column[i] = bingoCard[nextIndex];
+    }
+    return column;
+};
+
