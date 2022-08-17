@@ -84,3 +84,15 @@ const getLeftDiagonal=function (bingoCard){
     return leftDiagonal;
 };
 
+const getRightDiagonal = function (bingoCard){
+    let rightDiagonal = new Array(5);
+    let firstElementIndex=20;
+    rightDiagonal[0]=bingoCard[firstElementIndex];
+    let nextIndex=firstElementIndex;
+    for (let i=1;i<5;i++){
+        nextIndex-=4;
+        rightDiagonal[i]=bingoCard[nextIndex];
+    }
+    return rightDiagonal;
+};
+
