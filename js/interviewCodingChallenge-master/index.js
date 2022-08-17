@@ -72,3 +72,15 @@ const getColumn = function (bingoCard,columnNumber){
     return column;
 };
 
+const getLeftDiagonal=function (bingoCard){
+    let leftDiagonal = new Array(5);
+    let firstElementIndex=0;
+    leftDiagonal[0]=bingoCard[firstElementIndex];
+    let nextIndex=firstElementIndex;
+    for(let i=1;i<5;i++){
+        nextIndex+=6;
+        leftDiagonal[i]=bingoCard[nextIndex];
+    }
+    return leftDiagonal;
+};
+
