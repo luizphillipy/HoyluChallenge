@@ -59,3 +59,4 @@ const getLine = function(bingoCard, lineNumber) {
     }
     return line;
 };
+
